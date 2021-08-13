@@ -58,6 +58,11 @@ GulpClient.task('css',() => {
     .pipe(GulpClient.dest('dist/css'))
 })
 
+GulpClient.task('html', () =>{
+    return GulpClient.src('./html/**/*.html')
+    .pipe(GulpClient.dest('dist/html'))
+})
+
 // GulpClient.task('sass',() => {
 //     return GulpClient.src('./css/**/*.{sass,scss}')
 //     .pipe(sass())
@@ -84,13 +89,13 @@ GulpClient.task('watch',async () => {
     // GulpClient.watch('./img/**/*.{jpg,png,gif}',GulpClient.series(['images']))
     GulpClient.watch('./data/**/*.{json,xml}',GulpClient.series(['data']))
     GulpClient.watch('index.html',GulpClient.series(['copy-index']))
-    // GulpClient.watch('./html/**/*.html',GulpClient.series(['html']))
+    GulpClient.watch('./html/**/*.html',GulpClient.series(['html']))
 })
 
 
 
 
-GulpClient.task('build',GulpClient.series(['less','css','js','data','copy-index']),() => {
+GulpClient.task('build',GulpClient.series(['less','css','js','data','copy-index','html']),() => {
     runsequence('concat');
     console.log('编译成功');
 })
